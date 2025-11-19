@@ -1,2 +1,3 @@
-# neuro-dynasty
-From scratch evolutionary simulation based on a neural network
+# Neuro dynasty
+
+Build from scratch evolutionary simulation based on a neural network
