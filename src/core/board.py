@@ -16,9 +16,7 @@ class CellType(IntEnum):
 
 
 class Board:
-    def __init__(
-        self, width: int, height: int, population: int, food: int, poison: int
-    ):
+    def __init__(self, width: int, height: int, population: int, food: int, poison: int):
         self.widht = width
         self.height = height
         self.population = population
@@ -27,19 +25,15 @@ class Board:
         self.grid: list[list[CellType]] = self._create_start_board()
 
     def _create_empty_board(self) -> list[list[CellType]]:
-        board = [
-            [CellType.EMPTY for _ in range(self.widht)] for _ in range(self.height)
-        ]
+        board = [[CellType.EMPTY for _ in range(self.widht)] for _ in range(self.height)]
         log.debug("empty board created")
         return board
 
-    def _fil_empty_board(
-        self, emptyBoard: list[list[CellType]]
-    ) -> list[list[CellType]]:
+    def _fil_empty_board(self, emptyBoard: list[list[CellType]]) -> list[list[CellType]]:
         board = emptyBoard
 
-        position = [(x, y) for x in range(self.widht) for y in range(self.height)]
-        random.shuffl(positions)
+        positions = [(x, y) for x in range(self.widht) for y in range(self.height)]
+        random.shuffle(positions)
 
         male = female = math.floor(self.population / 2)
 
