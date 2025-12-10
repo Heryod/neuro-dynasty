@@ -2,15 +2,13 @@ import logging
 import sys
 
 grey = "\x1b[38;20m"
-blue = "\x1b[36m"
+blue = "\x1b[1;34m"
 yellow = "\x1b[33;20m"
 red = "\x1b[31;20m"
 bold_red = "\x1b[31;1m"
 reset = "\x1b[0m"
 
-log_format = (
-    "%(asctime)s ~ %(name)s ~ %(levelname)s ~ %(message)s (%(filename)s:%(lineno)d)"
-)
+log_format = " %(levelname)s: %(asctime)s - %(message)s (%(filename)s:%(lineno)d)"
 
 
 class CustomFormatter(logging.Formatter):

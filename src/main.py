@@ -4,7 +4,7 @@ import logging
 
 setup_logging()
 
-log = logging.getLogger(__name__)
+LOG = logging.getLogger(__name__)
 
 
 def GenerateBoard():
@@ -21,7 +21,7 @@ def GenerateBoard():
 
 def main() -> None:
     board = GenerateBoard()
-    print(board.grid)
+    # print(board.grid)
 
 
 if __name__ == "__main__":
