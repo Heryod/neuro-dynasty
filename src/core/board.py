@@ -1,5 +1,9 @@
 from enum import IntEnum
+import logging
 import random
+import math
+
+log = logging.getLogger(__name__)
 
 
 class CellType(IntEnum):
@@ -12,25 +16,45 @@ class CellType(IntEnum):
 
 
 class Board:
-    def __init__(self, width: int, height: int):
+    def __init__(
+        self, width: int, height: int, population: int, food: int, poison: int
+    ):
         self.widht = width
         self.height = height
-        self.grid: list[list[int]] = self._create_empty_board()
+        self.population = population
+        self.food = food
+        self.poison = poison
+        self.grid: list[list[int]] = self._create_start_board()
 
     def _create_empty_board(self) -> list[list[int]]:
         return [[CellType.EMPTY for _ in range(self.widht)] for _ in range(self.height)]
 
-    def _create_start_board(self, population, food, poison) -> list[list[int]]:
-        empty_board = self._create_empty_board()
+    def _fil_empty_board(self, emptyBoard: list[list[int]]) -> list[list[int]]:
+        board = emptyBoard
 
-        position = random.sample(
-            range(self.widht * self.height), population + food + poison
-        )
+        positions = [(x, y) for x in range(self.widht) for y in range(self.height)]
+        random.shuffle(positions)
 
-        for i in range(population):
-            x = position[i] % self.widht
-            y = position[i] // self.widht
+        man = woman = math.floor(self.population / 2)
 
-            print(x, y)
+        valueToPlace = [
+            (CellType.MALE, man),
+            (CellType.FEMALE, woman),
+            (CellType.FOOD, self.food),
+            (CellType.POISON, self.poison),
+        ]
 
-        return empty_board
+        index = 0
+        for value, count in valueToPlace:
+            for _ in range(count):
+                x, y = positions[index]
+                board[x][y] = value
+                index += 1
+
+        return board
+
+    def _create_start_board(self) -> list[list[int]]:
+        startBoard = self._create_empty_board()
+        board = self._fil_empty_board(startBoard)
+
+        return board
