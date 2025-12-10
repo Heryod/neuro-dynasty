@@ -24,22 +24,28 @@ class Board:
         self.population = population
         self.food = food
         self.poison = poison
-        self.grid: list[list[int]] = self._create_start_board()
+        self.grid: list[list[CellType]] = self._create_start_board()
 
-    def _create_empty_board(self) -> list[list[int]]:
-        return [[CellType.EMPTY for _ in range(self.widht)] for _ in range(self.height)]
+    def _create_empty_board(self) -> list[list[CellType]]:
+        board = [
+            [CellType.EMPTY for _ in range(self.widht)] for _ in range(self.height)
+        ]
+        log.debug("empty board created")
+        return board
 
-    def _fil_empty_board(self, emptyBoard: list[list[int]]) -> list[list[int]]:
+    def _fil_empty_board(
+        self, emptyBoard: list[list[CellType]]
+    ) -> list[list[CellType]]:
         board = emptyBoard
 
-        positions = [(x, y) for x in range(self.widht) for y in range(self.height)]
-        random.shuffle(positions)
+        position = [(x, y) for x in range(self.widht) for y in range(self.height)]
+        random.shuffl(positions)
 
-        man = woman = math.floor(self.population / 2)
+        male = female = math.floor(self.population / 2)
 
         valueToPlace = [
-            (CellType.MALE, man),
-            (CellType.FEMALE, woman),
+            (CellType.MALE, male),
+            (CellType.FEMALE, female),
             (CellType.FOOD, self.food),
             (CellType.POISON, self.poison),
         ]
@@ -51,9 +57,10 @@ class Board:
                 board[x][y] = value
                 index += 1
 
+        log.debug("board filling ended")
         return board
 
-    def _create_start_board(self) -> list[list[int]]:
+    def _create_start_board(self) -> list[list[CellType]]:
         startBoard = self._create_empty_board()
         board = self._fil_empty_board(startBoard)
 
