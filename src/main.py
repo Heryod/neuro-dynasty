@@ -7,7 +7,7 @@ setup_logging()
 LOG = logging.getLogger(__name__)
 
 
-def GenerateBoard():
+def generate_board():
     settings = get_board_settings()
     board = Board(
         settings["board_width"],
@@ -20,7 +20,7 @@ def GenerateBoard():
 
 
 def main() -> None:
-    board = GenerateBoard()
+    board = generate_board()
     # print(board.grid)
 
 

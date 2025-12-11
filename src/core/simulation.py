@@ -3,5 +3,5 @@ import logging
 LOG = logging.getLogger(__name__)
 
 
-def startSimulation():
+def start_simulation():
     LOG.debug("simulation started")

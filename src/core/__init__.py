@@ -1,4 +1,4 @@
 from .board import Board
-from .simulation import startSimulation
+from .simulation import start_simulation
 
-__all__ = ["Board", "startSimulation"]
+__all__ = ["Board", "start_simulation"]
