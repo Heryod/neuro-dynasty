@@ -1,5 +1,7 @@
-class Person:
-    def __init__(self, position: tuple[int, int], sex: str):
-        self.position = position
+from entities import Entity
+
+
+class Person(Entity):
+    def __init__(self, sex: str, position: tuple[int, int]):
         self.sex = sex
-        # self.strength
+        super().__init__(position)

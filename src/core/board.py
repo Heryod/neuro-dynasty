@@ -13,6 +13,10 @@ class CellType(IntEnum):
 
 
 class Board:
+    """
+    Class storing the board array of the entire simulation, with a two-dimensional grid containing objects.
+    """
+
     def __init__(
         self, width: int, height: int, start_population: int, start_food: int, start_poison: int
     ):
@@ -24,25 +28,31 @@ class Board:
         self.grid: list[list[CellType]] = self._create_start_board()
 
     def _create_empty_board(self) -> list[list[CellType]]:
+        """
+        Creating empty board
+        """
         board = [[CellType.EMPTY for _ in range(self.width)] for _ in range(self.height)]
         LOG.debug("empty board generated")
         return board
 
     def _fill_empty_board(self, board: list[list[CellType]]) -> list[list[CellType]]:
+        """
+        filling board with Person, Food and Poison objects.
+        """
         positions = [(x, y) for x in range(self.width) for y in range(self.height)]
         random.shuffle(positions)
 
         male_population = female_population = math.floor(self.population / 2)
 
         factory = {
-            "male": lambda pos: Person(pos, "male"),
-            "female": lambda pos: Person(pos, "female"),
+            "male": lambda pos: Person("male", pos),
+            "female": lambda pos: Person("female", pos),
             "food": lambda pos: Food(pos),
             "poison": lambda pos: Poison(pos),
         }
 
         values_to_place = [
-            ("male", male_population if self.population % 2 == 0 else male_population + 1 ),
+            ("male", male_population if self.population % 2 == 0 else male_population + 1),
             ("female", female_population),
             ("food", self.food),
             ("poison", self.poison),
@@ -59,6 +69,9 @@ class Board:
         return board
 
     def _create_start_board(self) -> list[list[CellType]]:
+        """
+        Creating started board with objects inside
+        """
         start_board = self._create_empty_board()
         board = self._fill_empty_board(start_board)
 

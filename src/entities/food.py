@@ -1,3 +1,6 @@
-class Food:
+from entities import Entity
+
+
+class Food(Entity):
     def __init__(self, position: tuple[int, int]):
-        self.position = position
+        super().__init__(position)
